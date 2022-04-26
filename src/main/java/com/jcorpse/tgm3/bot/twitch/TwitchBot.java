@@ -3,10 +3,12 @@ package com.jcorpse.tgm3.bot.twitch;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.github.philippheuer.credentialmanager.domain.OAuth2Credential;
 import com.github.twitch4j.TwitchClient;
 import com.github.twitch4j.TwitchClientBuilder;
 import com.github.twitch4j.chat.events.channel.*;
+import com.github.twitch4j.helix.domain.UserList;
 import com.github.twitch4j.pubsub.events.*;
 import com.jcorpse.tgm3.bot.discord.DiscordBot;
 import com.jcorpse.tgm3.config.Constant;
@@ -25,6 +27,7 @@ import java.text.DecimalFormat;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.Locale;
 
 @Component
@@ -50,6 +53,7 @@ public class TwitchBot {
         init();
         HypeTrainlistener();
         Chatlistener();
+        getChannelId(Constant.TWITCH_CHANNEL);
     }
 
     private static void init() {
@@ -63,6 +67,7 @@ public class TwitchBot {
         Formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
                 .withLocale(Locale.TAIWAN)
                 .withZone(ZoneId.of("Asia/Taipei"));
+        mapper.registerModule(new JavaTimeModule());
     }
 
     public static void HypeTrainlistener() {
@@ -120,12 +125,13 @@ public class TwitchBot {
                             "列車離站時間: " + Train.getEndAt() + "\n" +
                             "貼圖等級: " + Train.getLastLevel() + "-" + Train.getPercent() + "%\n" +
                             "=======================");
-            twitchDao.save(Train);
             try {
                 WebSocket.wsBroadcast(new TextMessage(mapper.writeValueAsString(Event.getData())));
             } catch (JsonProcessingException e) {
                 log.error("wsBroadcast error {}",e.getMessage());
             }
+            twitchDao.save(Train);
+
         });
 //        Client.getEventManager().onEvent(HypeTrainConductorUpdateEvent.class, (Event) -> {
 //            log.info(Event.toString());
@@ -146,11 +152,11 @@ public class TwitchBot {
         Client.getChat().sendMessage(Constant.TWITCH_CHANNEL, Msg);
     }
 
-//    public void getChannelId(String ChannelName) {
-//        UserList resultList = Client.getHelix().getUsers(null, null, Arrays.asList(ChannelName)).execute();
-//        resultList.getUsers().forEach(user -> {
-//            ChannelId = user.getId();
-//        });
-//    }
+    public static void getChannelId(String ChannelName) {
+        UserList resultList = Client.getHelix().getUsers(null, null, Arrays.asList(ChannelName)).execute();
+        resultList.getUsers().forEach(user -> {
+            log.info(user.getId());
+        });
+    }
 
 }
