@@ -65,6 +65,13 @@ public class WebSocket extends TextWebSocketHandler {
         hypeTrainStart.setStartedAt(Instant.now());
         hypeTrainStart.setChannelId(Constant.TWITCH_CHANNEL_ID);
         hypeTrainStart.setExpiresAt(Instant.now());
+        HypeTrainProgress hypeTrainProgress = new HypeTrainProgress();
+        hypeTrainProgress.setGoal(18000);
+        hypeTrainProgress.setTotal(900000);
+        hypeTrainProgress.setValue(50);
+        hypeTrainProgress.setRemainingSeconds(50);
+        hypeTrainStart.setProgress(hypeTrainProgress);
+        hypeTrainStart.setUpdatedAt(Instant.now());
         HypeTrainStartEvent startEvent = new HypeTrainStartEvent(hypeTrainStart);
         ObjectMapper ow = new ObjectMapper();
         ow.registerModule(new JavaTimeModule());
