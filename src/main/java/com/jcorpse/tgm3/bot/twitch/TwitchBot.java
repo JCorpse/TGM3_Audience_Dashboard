@@ -42,7 +42,8 @@ public class TwitchBot {
 
 
     @Autowired
-    private static TwitchDao twitchDao = new HyperTrainDaoImpl();
+    static
+    TwitchDao twitchDao = new HyperTrainDaoImpl();
 
 
     static {
@@ -131,7 +132,6 @@ public class TwitchBot {
                 log.error("wsBroadcast error {}",e.getMessage());
             }
             twitchDao.save(Train);
-
         });
 //        Client.getEventManager().onEvent(HypeTrainConductorUpdateEvent.class, (Event) -> {
 //            log.info(Event.toString());
