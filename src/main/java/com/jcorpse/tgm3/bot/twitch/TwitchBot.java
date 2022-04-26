@@ -41,10 +41,14 @@ public class TwitchBot {
     private static ObjectMapper mapper = new ObjectMapper();
 
 
-    @Autowired
     static
-    TwitchDao twitchDao = new HyperTrainDaoImpl();
+    TwitchDao twitchDao;
 
+
+    @Autowired
+    public void setTwitchDao(HyperTrainDaoImpl HyperTrainDaoImpl) {
+        twitchDao = HyperTrainDaoImpl;
+    }
 
     static {
         run();
