@@ -65,7 +65,7 @@ public class WebSocket extends TextWebSocketHandler {
         hypeTrainStart.setChannelId(Constant.TWITCH_CHANNEL_ID);
         hypeTrainStart.setExpiresAt(Instant.now());
         HypeTrainStartEvent startEvent = new HypeTrainStartEvent(hypeTrainStart);
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        ObjectMapper ow = new ObjectMapper();
         String json = ow.writeValueAsString(startEvent);
         wsBroadcast(new TextMessage(json));
     }
@@ -84,7 +84,7 @@ public class WebSocket extends TextWebSocketHandler {
         progression.setSequenceId(1123);
         progression.setUserId("123");
         HypeTrainProgressionEvent progressionEvent = new HypeTrainProgressionEvent(Constant.TWITCH_CHANNEL_ID,progression);
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        ObjectMapper ow = new ObjectMapper();
         String json = ow.writeValueAsString(progressionEvent);
         wsBroadcast(new TextMessage(json));
     }
@@ -99,7 +99,7 @@ public class WebSocket extends TextWebSocketHandler {
         levelUp.setProgress(hypeTrainProgress);
         levelUp.setTimeToExpire(Instant.now());
         HypeTrainLevelUpEvent levelUpEvent = new HypeTrainLevelUpEvent(Constant.TWITCH_CHANNEL_ID,levelUp);
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        ObjectMapper ow = new ObjectMapper();
         String json = ow.writeValueAsString(levelUpEvent);
         wsBroadcast(new TextMessage(json));
     }
