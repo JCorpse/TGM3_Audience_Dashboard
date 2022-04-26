@@ -45,13 +45,13 @@ public class WebSocket extends TextWebSocketHandler {
     private void BroadcastTest() throws JsonProcessingException {
         HyperTrain Train = new HyperTrain();
         Train.setTrainID("123456789");
-        Train.setLastLevel(5);
-        Train.setPercent("88");
+//        Train.setLastLevel(5);
+//        Train.setPercent("88");
         Train.setExpiresAt("2022-04-23 23:26:39");
         Train.setStartedAt("2022-04-23 23:31:39");
-        Train.setEndAt("2022-04-23 23:31:39");
-        Train.setGoal(1122348568);
-        Train.setProgress(5566668);
+//        Train.setEndAt("2022-04-23 23:31:39");
+//        Train.setGoal(1122348568);
+//        Train.setProgress(5566668);
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         String json = ow.writeValueAsString(Train);
         wsBroadcast(new TextMessage(json));

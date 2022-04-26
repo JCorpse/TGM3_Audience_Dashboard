@@ -1,6 +1,8 @@
 package com.jcorpse.tgm3.bot.twitch;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.philippheuer.credentialmanager.domain.OAuth2Credential;
 import com.github.twitch4j.TwitchClient;
 import com.github.twitch4j.TwitchClientBuilder;
@@ -33,6 +35,8 @@ public class TwitchBot {
     private static DateTimeFormatter Formatter;
     private static TwitchClient Client;
     private static HyperTrain Train = new HyperTrain();
+    private static ObjectMapper mapper = new ObjectMapper();
+
 
     @Autowired
     private static TwitchDao twitchDao = new HyperTrainDaoImpl();
@@ -81,7 +85,12 @@ public class TwitchBot {
                             "預計離站: " + Train.getExpiresAt() + "\n" +
                             "<@&806592766347968594>\n" +
                             "=======================");
-            WebSocket.wsBroadcast(new TextMessage(Train.toString()));
+
+            try {
+                WebSocket.wsBroadcast(new TextMessage(mapper.writeValueAsString(Train)));
+            } catch (JsonProcessingException e) {
+                log.error("wsBroadcast error {}",e.getMessage());
+            }
         });
 
         Client.getEventManager().onEvent(HypeTrainProgressionEvent.class, (Event) -> {
@@ -136,7 +145,7 @@ public class TwitchBot {
 //        });
 //    }
 
-    private void test1(){
+    private void test1() {
 
     }
 }
