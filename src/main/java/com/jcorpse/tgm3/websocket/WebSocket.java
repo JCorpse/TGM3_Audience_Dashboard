@@ -53,8 +53,6 @@ public class WebSocket extends TextWebSocketHandler {
         Train.setEndAt("2022-04-23 23:31:39");
         Train.setGoal(1122348568);
         Train.setProgress(5566668);
-
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        wsBroadcast(new TextMessage(new JSONObject(ow.writeValueAsString(Train)).toString()));
+        wsBroadcast(new TextMessage(Train.toString()));
     }
 }
