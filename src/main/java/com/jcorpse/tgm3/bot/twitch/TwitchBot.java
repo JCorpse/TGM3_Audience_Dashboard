@@ -132,4 +132,8 @@ public class TwitchBot {
 //            ChannelId = user.getId();
 //        });
 //    }
+
+    private void test(){
+
+    }
 }
