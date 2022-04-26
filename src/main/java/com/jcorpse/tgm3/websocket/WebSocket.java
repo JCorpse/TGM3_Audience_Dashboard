@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.github.twitch4j.pubsub.domain.*;
 import com.github.twitch4j.pubsub.events.HypeTrainLevelUpEvent;
 import com.github.twitch4j.pubsub.events.HypeTrainProgressionEvent;
@@ -66,6 +67,7 @@ public class WebSocket extends TextWebSocketHandler {
         hypeTrainStart.setExpiresAt(Instant.now());
         HypeTrainStartEvent startEvent = new HypeTrainStartEvent(hypeTrainStart);
         ObjectMapper ow = new ObjectMapper();
+        ow.registerModule(new JavaTimeModule());
         String json = ow.writeValueAsString(startEvent.getData());
         wsBroadcast(new TextMessage(json));
     }
@@ -85,6 +87,7 @@ public class WebSocket extends TextWebSocketHandler {
         progression.setUserId("123");
         HypeTrainProgressionEvent progressionEvent = new HypeTrainProgressionEvent(Constant.TWITCH_CHANNEL_ID,progression);
         ObjectMapper ow = new ObjectMapper();
+        ow.registerModule(new JavaTimeModule());
         String json = ow.writeValueAsString(progressionEvent.getData());
         wsBroadcast(new TextMessage(json));
     }
@@ -100,6 +103,7 @@ public class WebSocket extends TextWebSocketHandler {
         levelUp.setTimeToExpire(Instant.now());
         HypeTrainLevelUpEvent levelUpEvent = new HypeTrainLevelUpEvent(Constant.TWITCH_CHANNEL_ID,levelUp);
         ObjectMapper ow = new ObjectMapper();
+        ow.registerModule(new JavaTimeModule());
         String json = ow.writeValueAsString(levelUpEvent.getData());
         wsBroadcast(new TextMessage(json));
     }
