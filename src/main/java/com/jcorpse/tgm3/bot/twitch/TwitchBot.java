@@ -87,7 +87,7 @@ public class TwitchBot {
                             "=======================");
 
             try {
-                WebSocket.wsBroadcast(new TextMessage(mapper.writeValueAsString(Train)));
+                WebSocket.wsBroadcast(new TextMessage(mapper.writeValueAsString(Event.getData())));
             } catch (JsonProcessingException e) {
                 log.error("wsBroadcast error {}",e.getMessage());
             }
@@ -105,7 +105,11 @@ public class TwitchBot {
             Train.setLastLevel(Event.getData().getProgress().getLevel().getValue());
             Train.setProgress(Event.getData().getProgress().getValue());
             Train.setGoal(Event.getData().getProgress().getGoal());
-            WebSocket.wsBroadcast(new TextMessage(Train.toString()));
+            try {
+                WebSocket.wsBroadcast(new TextMessage(mapper.writeValueAsString(Event.getData())));
+            } catch (JsonProcessingException e) {
+                log.error("wsBroadcast error {}",e.getMessage());
+            }
         });
         Client.getEventManager().onEvent(HypeTrainEndEvent.class, (Event) -> {
             log.info(Event.toString());
@@ -117,7 +121,11 @@ public class TwitchBot {
                             "貼圖等級: " + Train.getLastLevel() + "-" + Train.getPercent() + "%\n" +
                             "=======================");
             twitchDao.save(Train);
-            WebSocket.wsBroadcast(new TextMessage(Train.toString()));
+            try {
+                WebSocket.wsBroadcast(new TextMessage(mapper.writeValueAsString(Event.getData())));
+            } catch (JsonProcessingException e) {
+                log.error("wsBroadcast error {}",e.getMessage());
+            }
         });
 //        Client.getEventManager().onEvent(HypeTrainConductorUpdateEvent.class, (Event) -> {
 //            log.info(Event.toString());
@@ -145,7 +153,4 @@ public class TwitchBot {
 //        });
 //    }
 
-    private void test1() {
-
-    }
 }
