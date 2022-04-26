@@ -34,7 +34,8 @@ public class TwitchBot {
     private static HyperTrain Train = new HyperTrain();
 
     @Autowired
-    TwitchDao twitchDao = new HyperTrainDaoImpl();
+    private static TwitchDao twitchDao = new HyperTrainDaoImpl();
+
 
     static {
         run();
@@ -105,7 +106,7 @@ public class TwitchBot {
                             "列車離站時間: " + Train.getEndAt() + "\n" +
                             "貼圖等級: " + Train.getLastLevel() + "-" + Train.getPercent() + "%\n" +
                             "=======================");
-
+            twitchDao.save(Train);
         });
 //        Client.getEventManager().onEvent(HypeTrainConductorUpdateEvent.class, (Event) -> {
 //            log.info(Event.toString());
@@ -133,7 +134,7 @@ public class TwitchBot {
 //        });
 //    }
 
-    private void test(){
+    private void test1(){
 
     }
 }
