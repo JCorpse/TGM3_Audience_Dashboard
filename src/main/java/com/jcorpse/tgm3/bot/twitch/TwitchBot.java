@@ -17,6 +17,7 @@ import org.jetbrains.annotations.Async;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.TextMessage;
 
 import java.text.DecimalFormat;
 import java.time.Instant;
@@ -80,6 +81,7 @@ public class TwitchBot {
                             "預計離站: " + Train.getExpiresAt() + "\n" +
                             "<@&806592766347968594>\n" +
                             "=======================");
+            WebSocket.wsBroadcast(new TextMessage(Train.toString()));
         });
 
         Client.getEventManager().onEvent(HypeTrainProgressionEvent.class, (Event) -> {
@@ -88,14 +90,13 @@ public class TwitchBot {
             Train.setProgress(Event.getData().getProgress().getValue());
             Train.setGoal(Event.getData().getProgress().getGoal());
             Train.setPercent((new DecimalFormat("#.##").format(((float) Train.getProgress() / Train.getGoal()) * 100)));
-
-
         });
         Client.getEventManager().onEvent(HypeTrainLevelUpEvent.class, (Event) -> {
             log.info(Event.toString());
             Train.setLastLevel(Event.getData().getProgress().getLevel().getValue());
             Train.setProgress(Event.getData().getProgress().getValue());
             Train.setGoal(Event.getData().getProgress().getGoal());
+            WebSocket.wsBroadcast(new TextMessage(Train.toString()));
         });
         Client.getEventManager().onEvent(HypeTrainEndEvent.class, (Event) -> {
             log.info(Event.toString());
@@ -107,6 +108,7 @@ public class TwitchBot {
                             "貼圖等級: " + Train.getLastLevel() + "-" + Train.getPercent() + "%\n" +
                             "=======================");
             twitchDao.save(Train);
+            WebSocket.wsBroadcast(new TextMessage(Train.toString()));
         });
 //        Client.getEventManager().onEvent(HypeTrainConductorUpdateEvent.class, (Event) -> {
 //            log.info(Event.toString());
