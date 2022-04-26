@@ -53,7 +53,7 @@ public class TwitchBot {
         init();
         HypeTrainlistener();
         Chatlistener();
-        getChannelId(Constant.TWITCH_CHANNEL);
+//        getChannelId(Constant.TWITCH_CHANNEL);
     }
 
     private static void init() {
