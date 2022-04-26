@@ -1,7 +1,12 @@
 package com.jcorpse.tgm3.websocket;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.jcorpse.tgm3.dto.HyperTrain;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.configurationprocessor.json.JSONException;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
@@ -38,7 +43,7 @@ public class WebSocket extends TextWebSocketHandler {
         SessionManager.broadcast(message);
     }
 
-    private void BroadcastTest(){
+    private void BroadcastTest() throws JsonProcessingException, JSONException {
         HyperTrain Train = new HyperTrain();
         Train.setTrainID("123456789");
         Train.setLastLevel(5);
@@ -48,6 +53,8 @@ public class WebSocket extends TextWebSocketHandler {
         Train.setEndAt("2022-04-23 23:31:39");
         Train.setGoal(1122348568);
         Train.setProgress(5566668);
-        wsBroadcast(new TextMessage(Train.toString()));
+
+        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        wsBroadcast(new TextMessage(new JSONObject(ow.writeValueAsString(Train)).toString()));
     }
 }
