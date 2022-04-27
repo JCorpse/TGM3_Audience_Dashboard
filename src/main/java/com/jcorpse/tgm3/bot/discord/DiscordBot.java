@@ -6,18 +6,27 @@ import discord4j.core.DiscordClientBuilder;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.discordjson.Id;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
-@Component
 @Slf4j
 public class DiscordBot{
-    private GatewayDiscordClient Client;
+    private static GatewayDiscordClient Client;
 
-    public void run() {
+    static {
+        run();
+    }
+
+    public static DiscordBot getInstance() {
+        return DiscordBot.Holder.Instance;
+    }
+    private static class Holder {
+        private static DiscordBot Instance = new DiscordBot();
+    }
+
+    public static void run() {
         init();
     }
 
-    private void init(){
+    private static void init(){
         try {
             Client = DiscordClientBuilder.create(Constant.DISCORD_TOKEN)
                     .build()
