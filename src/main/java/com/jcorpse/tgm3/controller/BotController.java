@@ -18,7 +18,7 @@ public class BotController {
         return "botsend";
     }
 
-    @PostMapping(value = "/send")
+    @PostMapping(value = "/botsend")
     public String Send(@RequestParam("token") String token,@RequestParam("msg") String msg) {
         if(token.equalsIgnoreCase(System.getenv("sendbot"))){
             TwitchBot.ChatSend(msg);
