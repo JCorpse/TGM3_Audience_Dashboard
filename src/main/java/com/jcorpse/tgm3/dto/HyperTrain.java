@@ -10,6 +10,7 @@ import java.io.Serializable;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class HyperTrain implements Serializable {
+
     private String TrainID;
     private String StartedAt;
     private String ExpiresAt;
