@@ -10,16 +10,14 @@ import com.github.twitch4j.TwitchClientBuilder;
 import com.github.twitch4j.chat.events.channel.*;
 import com.github.twitch4j.helix.domain.UserList;
 import com.github.twitch4j.pubsub.events.*;
+import com.jcorpse.tgm3.Tgm3AudienceDashboardApplication;
 import com.jcorpse.tgm3.bot.discord.DiscordBot;
 import com.jcorpse.tgm3.config.Constant;
 import com.jcorpse.tgm3.dao.TwitchDao;
-import com.jcorpse.tgm3.dao.impl.HyperTrainDaoImpl;
 import com.jcorpse.tgm3.dto.HyperTrain;
 import com.jcorpse.tgm3.websocket.WebSocket;
 import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.Async;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
 
@@ -33,35 +31,23 @@ import java.util.Locale;
 @Component
 @Slf4j
 public class TwitchBot {
-    private static OAuth2Credential Credential = new OAuth2Credential("twitch", Constant.TWITCH_OAUTH);
-    private static DiscordBot Discord_Bot = DiscordBot.getInstance();
-    private static DateTimeFormatter Formatter;
-    private static TwitchClient Client;
-    private static HyperTrain Train = new HyperTrain();
-    private static ObjectMapper mapper = new ObjectMapper();
-
-
-    static
-    TwitchDao twitchDao;
-
+    private OAuth2Credential Credential = new OAuth2Credential("twitch", Constant.TWITCH_OAUTH);
+    private DiscordBot Discord_Bot = Tgm3AudienceDashboardApplication.getAppContext().getBean(DiscordBot.class);
+    private DateTimeFormatter Formatter;
+    private TwitchClient Client;
+    private HyperTrain Train = new HyperTrain();
+    private ObjectMapper mapper = new ObjectMapper();
 
     @Autowired
-    public void setTwitchDao(HyperTrainDaoImpl HyperTrainDaoImpl) {
-        twitchDao = HyperTrainDaoImpl;
-    }
+    TwitchDao twitchDao;
 
-    static {
-        run();
-    }
-
-    public static void run() {
+    public void run() {
         init();
         HypeTrainlistener();
         Chatlistener();
-//        getChannelId(Constant.TWITCH_CHANNEL);
     }
 
-    private static void init() {
+    private void init() {
         Client = TwitchClientBuilder.builder()
                 .withEnableChat(true)
                 .withChatAccount(Credential)
@@ -75,7 +61,7 @@ public class TwitchBot {
         mapper.registerModule(new JavaTimeModule());
     }
 
-    public static void HypeTrainlistener() {
+    public void HypeTrainlistener() {
         Client.getPubSub().listenForHypeTrainEvents(Credential, Constant.TWITCH_CHANNEL_ID);
 
         Client.getEventManager().onEvent(HypeTrainApproachingEvent.class, (Event) -> {
@@ -99,7 +85,7 @@ public class TwitchBot {
             try {
                 WebSocket.wsBroadcast(new TextMessage(mapper.writeValueAsString(Event.getData())));
             } catch (JsonProcessingException e) {
-                log.error("wsBroadcast error {}",e.getMessage());
+                log.error("wsBroadcast error {}", e.getMessage());
             }
         });
 
@@ -118,7 +104,7 @@ public class TwitchBot {
             try {
                 WebSocket.wsBroadcast(new TextMessage(mapper.writeValueAsString(Event.getData())));
             } catch (JsonProcessingException e) {
-                log.error("wsBroadcast error {}",e.getMessage());
+                log.error("wsBroadcast error {}", e.getMessage());
             }
         });
         Client.getEventManager().onEvent(HypeTrainEndEvent.class, (Event) -> {
@@ -133,7 +119,7 @@ public class TwitchBot {
             try {
                 WebSocket.wsBroadcast(new TextMessage(mapper.writeValueAsString(Event.getData())));
             } catch (JsonProcessingException e) {
-                log.error("wsBroadcast error {}",e.getMessage());
+                log.error("wsBroadcast error {}", e.getMessage());
             }
             twitchDao.save(Train);
         });
@@ -145,18 +131,18 @@ public class TwitchBot {
 //        });
     }
 
-    private static void Chatlistener() {
+    private void Chatlistener() {
         Client.getChat().joinChannel(Constant.TWITCH_CHANNEL);
         Client.getEventManager().onEvent(ChannelMessageEvent.class, event -> {
             log.info("[{}] {}:{}", event.getChannel().getName(), event.getUser().getName(), event.getMessage());
         });
     }
 
-    public static void ChatSend(String Msg) {
+    public void ChatSend(String Msg) {
         Client.getChat().sendMessage(Constant.TWITCH_CHANNEL, Msg);
     }
 
-    public static void getChannelId(String ChannelName) {
+    public void getChannelId(String ChannelName) {
         UserList resultList = Client.getHelix().getUsers(null, null, Arrays.asList(ChannelName)).execute();
         resultList.getUsers().forEach(user -> {
             log.info(user.getId());
