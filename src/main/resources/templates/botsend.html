@@ -5,16 +5,12 @@
     <title>botsend</title>
 </head>
 <body>
-    <form action="/send" method="post" onsubmit="send(); return false;">
+    <form action="/send" method="post">
         <input type="text" name="token" id="token">
         <input type="text" name="msg" id="msg">
         <input type="submit" name="submit" id="submit">
     </form>
 <script>
-    function send(){
-        $.post(url,data,function(data){
-        });
-    }
 </script>
 </body>
 </html>
