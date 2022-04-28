@@ -9,4 +9,4 @@
 - <font size=4>**version  2.0.0**</font> </br>
     - 舊版bot移植
     - 雙開之鬼模式
-    - 串接mongodb atlas
+    - 接mongodb atlas
