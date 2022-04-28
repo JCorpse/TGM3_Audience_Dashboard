@@ -5,12 +5,11 @@
     <title>botsend</title>
 </head>
 <body>
-    <form action="/botsend" method="post">
+    <form action="/botsend" method="post" target="hide_iframe">
         <input type="text" name="token" id="token">
         <input type="text" name="msg" id="msg">
         <input type="submit" name="submit" id="submit">
     </form>
-<script>
-</script>
+    <iframe id="hide_iframe" name="hide_iframe" style="display:none;"></iframe>
 </body>
 </html>
