@@ -7,8 +7,8 @@
 <body>
 <form action="/bot/send" method="post" target="hide_iframe">
     <input type="password" name="token" id="token">
-    <input type="text" name="msg" id="msg">
-    <input type="submit" name="submit" id="submit" onclick="document.getElementById('msg').value = ''">
+    <input type="text" name="msg" id="msg" onsubmit="this.text('')">
+    <input type="submit" name="submit" id="submit">
 </form>
 <iframe id="hide_iframe" name="hide_iframe" style="display:none;"></iframe>
 
