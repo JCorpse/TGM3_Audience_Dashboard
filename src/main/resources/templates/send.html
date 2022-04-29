@@ -5,6 +5,11 @@
     <title>botsend</title>
 </head>
 <body>
+<iframe id="twitch-chat-embed"
+        src="https://www.twitch.tv/embed/tetristhegrandmaster3/chat?parent=tgm3-audience-dashboard.herokuapp.com"
+        height="500"
+        width="350">
+</iframe>
 <form action="/bot/send" method="post" target="hide_iframe">
     <input type="password" name="token" id="token">
     <input type="text" name="msg" id="msg">
