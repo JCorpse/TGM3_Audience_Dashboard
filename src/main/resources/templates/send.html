@@ -5,11 +5,6 @@
     <title>botsend</title>
 </head>
 <body>
-<iframe id="twitch-chat-embed"
-        src=""
-        height="500"
-        width="350">
-</iframe>
 <form action="/bot/send" method="post" target="hide_iframe">
     <input type="password" name="token" id="token">
     <input type="text" name="msg" id="msg">
@@ -17,11 +12,5 @@
 </form>
 <iframe id="hide_iframe" name="hide_iframe" style="display:none;"></iframe>
 
-<script>
-    function set (){
-        document.getElementById("twitch-chat-embed").src ='https://www.twitch.tv/embed/tetristhegrandmaster3/chat?parent='+window.location.hostname;
-    };
-    set();
-</script>
 </body>
 </html>
