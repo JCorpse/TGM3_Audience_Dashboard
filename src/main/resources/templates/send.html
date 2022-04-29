@@ -10,16 +10,33 @@
         height="500"
         width="350">
 </iframe>
-<form action="/bot/send" method="post" target="hide_iframe">
+<form action="/bot/send" id="sendform" method="post" target="hide_iframe" onsubmit=" document.getElementById('msg').value = ''">
     <input type="password" name="token" id="token">
     <input type="text" name="msg" id="msg">
-    <input type="submit" name="submit" id="submit" onsubmit="document.getElementById('msg').value = ''">
+    <input type="button" value="submit" name="submit" id="submit" onclick=postData(document.getElementById('sendform').getAttribute("action"))>
 </form>
 <iframe id="hide_iframe" name="hide_iframe" style="display:none;"></iframe>
 
 <script>
     function setchat() {
         document.getElementById("twitch-chat-embed").src = "https://www.twitch.tv/embed/tetristhegrandmaster3/chat?parent="+window.location.hostname;
+    }
+
+    function postData(url) {
+        // Default options are marked with *
+        return fetch(url, {
+            body: new FormData(document.getElementById("sendform")), // must match 'Content-Type' header
+            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+            credentials: 'same-origin', // include, same-origin, *omit
+            headers: {
+                'user-agent': 'Mozilla/4.0 MDN Example',
+                'content-type': 'application/json'
+            },
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            mode: 'cors', // no-cors, cors, *same-origin
+            redirect: 'follow', // manual, *follow, error
+            referrer: 'no-referrer', // *client, no-referrer
+        })
     }
     setchat();
 </script>
