@@ -25,17 +25,15 @@
     function postData(url) {
         // Default options are marked with *
         return fetch(url, {
-            body: new FormData(document.getElementById("sendform")), // must match 'Content-Type' header
-            cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-            credentials: 'same-origin', // include, same-origin, *omit
+            body: new URLSearchParams(new FormData(document.getElementById("sendform"))).toString(), // must match 'Content-Type' header
             headers: {
-                'user-agent': 'Mozilla/4.0 MDN Example',
-                'content-type': 'application/json'
+                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36',
+                'content-type': 'application/x-www-form-urlencoded'
             },
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
-            mode: 'cors', // no-cors, cors, *same-origin
-            redirect: 'follow', // manual, *follow, error
             referrer: 'no-referrer', // *client, no-referrer
+        }).then(()=>{
+            document.getElementById('msg').value='';
         })
     }
     setchat();
