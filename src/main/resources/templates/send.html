@@ -5,12 +5,23 @@
     <title>botsend</title>
 </head>
 <body>
+<iframe id="twitch-chat-embed"
+        src=""
+        height="500"
+        width="350">
+</iframe>
 <form action="/bot/send" method="post" target="hide_iframe">
     <input type="password" name="token" id="token">
-    <input type="text" name="msg" id="msg" onsubmit="this.text('')">
-    <input type="submit" name="submit" id="submit">
+    <input type="text" name="msg" id="msg">
+    <input type="submit" name="submit" id="submit" onsubmit="document.getElementById('msg').value = ''">
 </form>
 <iframe id="hide_iframe" name="hide_iframe" style="display:none;"></iframe>
 
+<script>
+    function setchat() {
+        document.getElementById("twitch-chat-embed").src = "https://www.twitch.tv/embed/twitchdev/chat?parent="+window.location.hostname;
+    }
+    setchat();
+</script>
 </body>
 </html>
