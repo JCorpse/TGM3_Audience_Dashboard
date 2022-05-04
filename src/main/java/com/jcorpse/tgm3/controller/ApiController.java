@@ -2,6 +2,7 @@ package com.jcorpse.tgm3.controller;
 
 import com.jcorpse.tgm3.dao.TwitchDao;
 import com.jcorpse.tgm3.dao.impl.HyperTrainDaoImpl;
+import io.swagger.v3.oas.annotations.OpenAPI31;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +20,12 @@ public class ApiController {
         return  new ResponseEntity<>("ㄟˋㄍㄢˋ！，ㄔㄨㄢ ㄕㄢ ㄐㄧㄚˇㄟˋ！，ㄨ ㄏㄨ ！ㄓㄜˋㄎㄜˇ一 ㄧㄤˇㄇㄚ ！？ㄟˋㄓㄤ ㄌㄤˊㄓㄜˋㄎㄜˇ一 ㄧㄤˇㄇㄚ ！，ㄨㄛˇ ㄅㄨˋ ㄓ ㄉㄠˋㄋㄧˇ ㄓㄨㄚ ㄏㄨㄟˊㄐㄧㄚ ！，ㄟˋ！ㄐㄧㄝˋㄍㄨㄛˋㄐㄧㄝˋㄍㄨㄛˋㄅㄨˊㄧㄠˋㄆㄠˇ！，ㄨ ㄨ， ㄊㄚ ㄆㄠˇㄉㄧㄠˋㄌㄜ˙！，ㄨ ㄏㄨ ㄏㄨ ！ㄛˋㄏㄠˇㄉㄧㄠˇㄛˋ！", HttpStatus.OK);
     }
 
-    @GetMapping("/Trains")
-    private ResponseEntity getAllTrains(){
-       return new ResponseEntity<>(twitchDao.getAllData(),HttpStatus.OK);
+    @RequestMapping("/api")
+    class Apis{
+        @OpenAPI31
+        @GetMapping("/Trains")
+        private ResponseEntity getAllTrains(){
+            return new ResponseEntity<>(twitchDao.getAllData(),HttpStatus.OK);
+        }
     }
 }
