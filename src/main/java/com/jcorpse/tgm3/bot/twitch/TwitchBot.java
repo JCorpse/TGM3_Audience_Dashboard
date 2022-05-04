@@ -17,9 +17,7 @@ import com.jcorpse.tgm3.dao.impl.HyperTrainDaoImpl;
 import com.jcorpse.tgm3.dto.HyperTrain;
 import com.jcorpse.tgm3.websocket.WebSocket;
 import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.Async;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.TextMessage;
 
@@ -58,7 +56,6 @@ public class TwitchBot {
         init();
         HypeTrainlistener();
         Chatlistener();
-//        getChannelId(Constant.TWITCH_CHANNEL);
     }
 
     private static void init() {
@@ -90,7 +87,7 @@ public class TwitchBot {
             Train.setExpiresAt(Event.getData().getExpiresAt().atZone(ZoneId.of("Asia/Taipei")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
             log.info(Event.getData().getId());
             Discord_Bot.sendMsg(
-                    "==== 列車發車記錄(v2.0) ====\n" +
+                    "==== 列車發車記錄(v"+Constant.VERSION+") ====\n" +
                             "開車時間: " + Train.getStartedAt() + "\n" +
                             "預計離站: " + Train.getExpiresAt() + "\n" +
                             "<@&806592766347968594>\n" +
@@ -126,7 +123,7 @@ public class TwitchBot {
             Instant EndTime = Event.getData().getEndedAt();
             Train.setEndAt(Formatter.format(EndTime));
             Discord_Bot.sendMsg(
-                    "==== 列車發車記錄(v2.0) ====\n" +
+                    "==== 列車發車記錄(v"+Constant.VERSION+") ====\n" +
                             "列車離站時間: " + Train.getEndAt() + "\n" +
                             "貼圖等級: " + Train.getLastLevel() + "-" + Train.getPercent() + "%\n" +
                             "=======================");
@@ -154,13 +151,6 @@ public class TwitchBot {
 
     public static void ChatSend(String Msg) {
         Client.getChat().sendMessage(Constant.TWITCH_CHANNEL, Msg);
-    }
-
-    public static void getChannelId(String ChannelName) {
-        UserList resultList = Client.getHelix().getUsers(null, null, Arrays.asList(ChannelName)).execute();
-        resultList.getUsers().forEach(user -> {
-            log.info(user.getId());
-        });
     }
 
 }
