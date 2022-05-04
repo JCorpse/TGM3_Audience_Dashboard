@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 public class ApiController {
@@ -20,9 +21,9 @@ public class ApiController {
         return  new ResponseEntity<>("ㄟˋㄍㄢˋ！，ㄔㄨㄢ ㄕㄢ ㄐㄧㄚˇㄟˋ！，ㄨ ㄏㄨ ！ㄓㄜˋㄎㄜˇ一 ㄧㄤˇㄇㄚ ！？ㄟˋㄓㄤ ㄌㄤˊㄓㄜˋㄎㄜˇ一 ㄧㄤˇㄇㄚ ！，ㄨㄛˇ ㄅㄨˋ ㄓ ㄉㄠˋㄋㄧˇ ㄓㄨㄚ ㄏㄨㄟˊㄐㄧㄚ ！，ㄟˋ！ㄐㄧㄝˋㄍㄨㄛˋㄐㄧㄝˋㄍㄨㄛˋㄅㄨˊㄧㄠˋㄆㄠˇ！，ㄨ ㄨ， ㄊㄚ ㄆㄠˇㄉㄧㄠˋㄌㄜ˙！，ㄨ ㄏㄨ ㄏㄨ ！ㄛˋㄏㄠˇㄉㄧㄠˇㄛˋ！", HttpStatus.OK);
     }
 
+    @RestController
     @RequestMapping("/api")
     class Apis{
-        @OpenAPI31
         @GetMapping("/Trains")
         private ResponseEntity getAllTrains(){
             return new ResponseEntity<>(twitchDao.getAllData(),HttpStatus.OK);
