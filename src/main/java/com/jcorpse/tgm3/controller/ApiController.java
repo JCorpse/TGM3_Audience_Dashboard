@@ -3,6 +3,7 @@ package com.jcorpse.tgm3.controller;
 import com.jcorpse.tgm3.dao.TwitchDao;
 import com.jcorpse.tgm3.dao.impl.HyperTrainDaoImpl;
 import io.swagger.v3.oas.annotations.OpenAPI31;
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,9 +25,11 @@ public class ApiController {
     @RestController
     @RequestMapping("/api")
     class Apis{
+        @Operation(summary = "Get All HyperTrainData",description = "Get All HyperTrainData")
         @GetMapping("/Trains")
         private ResponseEntity getAllTrains(){
             return new ResponseEntity<>(twitchDao.getAllData(),HttpStatus.OK);
         }
+
     }
 }
