@@ -135,7 +135,7 @@ public class TwitchBot {
             } catch (JsonProcessingException e) {
                 log.error("wsBroadcast error {}",e.getMessage());
             }
-            twitchDao.save(Train);
+            twitchDao.saveData(Train);
         });
 //        Client.getEventManager().onEvent(HypeTrainConductorUpdateEvent.class, (Event) -> {
 //            log.info(Event.toString());
