@@ -17,10 +17,9 @@ public class BotController {
 
     @CrossOrigin
     @PostMapping(value = "/send")
-    public String Send(@RequestParam("token") String token,@RequestParam("msg") String msg) {
+    public void Send(@RequestParam("token") String token,@RequestParam("msg") String msg) {
         if(token.equalsIgnoreCase(System.getenv("sendbot"))){
             TwitchBot.ChatSend(msg);
         }
-        return "send";
     }
 }
