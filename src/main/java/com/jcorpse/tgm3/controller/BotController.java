@@ -3,10 +3,7 @@ package com.jcorpse.tgm3.controller;
 import com.jcorpse.tgm3.bot.twitch.TwitchBot;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @Slf4j
@@ -18,6 +15,7 @@ public class BotController {
         return "send";
     }
 
+    @CrossOrigin
     @PostMapping(value = "/send")
     public String Send(@RequestParam("token") String token,@RequestParam("msg") String msg) {
         if(token.equalsIgnoreCase(System.getenv("sendbot"))){
