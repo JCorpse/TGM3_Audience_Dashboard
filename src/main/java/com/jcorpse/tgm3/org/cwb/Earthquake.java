@@ -37,7 +37,7 @@ public class Earthquake {
             if (!ResJSON.isEmpty()) {
                 Embed = EmbedCreateSpec.builder()
                         .color(Color.of(random.nextInt(255), random.nextInt(255), random.nextInt(255)))
-                        .title(ResJSON.with("records").get("datasetDescription").asText() + "(v0.1)")
+                        .title(ResJSON.with("records").get("datasetDescription").asText() + "("+Constant.VERSION+")")
                         .description(ResJSON.with("records").get("earthquake").get(0).get("reportContent").asText().replaceAll("[0-9]{2}/[0-9]{2}-[0-9]{2}:[0-9]{2}", ""))
                         .image(ResJSON.with("records").get("earthquake").get(0).get("reportImageURI").asText())
                         .url(ResJSON.with("records").get("earthquake").get(0).get("web").asText())
