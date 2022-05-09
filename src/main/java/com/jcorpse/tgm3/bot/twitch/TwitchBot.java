@@ -2,7 +2,9 @@ package com.jcorpse.tgm3.bot.twitch;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.github.philippheuer.credentialmanager.domain.OAuth2Credential;
 import com.github.twitch4j.TwitchClient;
@@ -94,7 +96,11 @@ public class TwitchBot {
                             "=======================");
 
             try {
-                WebSocket.wsBroadcast(new TextMessage(mapper.writeValueAsString(Event.getData())));
+                ObjectNode EventJSON = mapper.createObjectNode();
+                EventJSON.put("event","start");
+                EventJSON.put("id","100");
+                EventJSON.putPOJO("data",Event);
+                WebSocket.wsBroadcast(new TextMessage(mapper.writeValueAsString(EventJSON)));
             } catch (JsonProcessingException e) {
                 log.error("wsBroadcast error {}",e.getMessage());
             }
@@ -113,6 +119,10 @@ public class TwitchBot {
             Train.setProgress(Event.getData().getProgress().getValue());
             Train.setGoal(Event.getData().getProgress().getGoal());
             try {
+                ObjectNode EventJSON = mapper.createObjectNode();
+                EventJSON.put("event","lvup");
+                EventJSON.put("id","101");
+                EventJSON.putPOJO("data",Event);
                 WebSocket.wsBroadcast(new TextMessage(mapper.writeValueAsString(Event.getData())));
             } catch (JsonProcessingException e) {
                 log.error("wsBroadcast error {}",e.getMessage());
@@ -128,6 +138,10 @@ public class TwitchBot {
                             "貼圖等級: " + Train.getLastLevel() + "-" + Train.getPercent() + "%\n" +
                             "=======================");
             try {
+                ObjectNode EventJSON = mapper.createObjectNode();
+                EventJSON.put("event","end");
+                EventJSON.put("id","102");
+                EventJSON.putPOJO("data",Event);
                 WebSocket.wsBroadcast(new TextMessage(mapper.writeValueAsString(Event.getData())));
             } catch (JsonProcessingException e) {
                 log.error("wsBroadcast error {}",e.getMessage());
