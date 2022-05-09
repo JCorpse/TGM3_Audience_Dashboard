@@ -16,4 +16,6 @@ public class Constant {
 
     public static final String TRAINS_COLLECTION_NAME="HyperTrains";
     public static final String VERSION = "2.0.1";
+
+    public static final String CWB_TOKEN = System.getenv("CWB_TOKEN");
 }
