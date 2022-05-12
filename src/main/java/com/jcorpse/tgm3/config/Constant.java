@@ -12,6 +12,7 @@ public class Constant {
 
 
     public static final String DISCORD_CHANNEl = "812636716640501760";
+    public static final String DISCORD_CHANNEl_TEST = "687712826978074675";
     public static final String DISCORD_TOKEN = System.getenv("Discord_TOKEN");
 
     public static final String TRAINS_COLLECTION_NAME="HyperTrains";

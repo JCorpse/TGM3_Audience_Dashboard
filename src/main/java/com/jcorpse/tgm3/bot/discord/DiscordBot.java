@@ -48,6 +48,10 @@ public class DiscordBot {
         Client.getRestClient().getChannelById(Snowflake.of(Id.of(Constant.DISCORD_CHANNEl))).createMessage(content).subscribe();
     }
 
+    public void sendMsg(String ChannelID,  String content) {
+        Client.getRestClient().getChannelById(Snowflake.of(Id.of(ChannelID))).createMessage(content).subscribe();
+    }
+
     private static void ReportEarthquake() {
         Client.on(MessageCreateEvent.class).subscribe(event -> {
             final Message message = event.getMessage();
