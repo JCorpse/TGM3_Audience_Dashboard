@@ -3,6 +3,7 @@ package com.jcorpse.tgm3.websocket;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.github.twitch4j.pubsub.domain.*;
@@ -75,7 +76,12 @@ public class WebSocket extends TextWebSocketHandler {
         HypeTrainStartEvent startEvent = new HypeTrainStartEvent(hypeTrainStart);
         ObjectMapper ow = new ObjectMapper();
         ow.registerModule(new JavaTimeModule());
-        String json = ow.writeValueAsString(startEvent.getData());
+
+        ObjectNode EventJSON = ow.createObjectNode();
+        EventJSON.put("event","start");
+        EventJSON.put("id","100");
+        EventJSON.putPOJO("data",startEvent);
+        String json = ow.writeValueAsString(EventJSON);
         wsBroadcast(new TextMessage(json));
     }
 
@@ -111,7 +117,11 @@ public class WebSocket extends TextWebSocketHandler {
         HypeTrainLevelUpEvent levelUpEvent = new HypeTrainLevelUpEvent(Constant.TWITCH_CHANNEL_ID,levelUp);
         ObjectMapper ow = new ObjectMapper();
         ow.registerModule(new JavaTimeModule());
-        String json = ow.writeValueAsString(levelUpEvent.getData());
+        ObjectNode EventJSON = ow.createObjectNode();
+        EventJSON.put("event","lvup");
+        EventJSON.put("id","101");
+        EventJSON.putPOJO("data",levelUpEvent);
+        String json = ow.writeValueAsString(EventJSON);
         wsBroadcast(new TextMessage(json));
     }
 }
