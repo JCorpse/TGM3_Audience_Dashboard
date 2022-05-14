@@ -100,7 +100,7 @@ public class TwitchBot {
                 EventJSON.put("event","start");
                 EventJSON.put("id","100");
                 EventJSON.putPOJO("data",Event);
-                Discord_Bot.sendMsg(Constant.DISCORD_CHANNEl_TEST,mapper.writeValueAsString(EventJSON));
+                Discord_Bot.sendMsg(Constant.DISCORD_CHANNEl_TEST,mapper.writeValueAsString(Event));
                 WebSocket.wsBroadcast(new TextMessage(mapper.writeValueAsString(EventJSON)));
             } catch (JsonProcessingException e) {
                 log.error("wsBroadcast error {}",e.getMessage());
@@ -124,7 +124,7 @@ public class TwitchBot {
                 EventJSON.put("event","lvup");
                 EventJSON.put("id","101");
                 EventJSON.putPOJO("data",Event);
-                Discord_Bot.sendMsg(Constant.DISCORD_CHANNEl_TEST,mapper.writeValueAsString(EventJSON));
+                Discord_Bot.sendMsg(Constant.DISCORD_CHANNEl_TEST,mapper.writeValueAsString(Event));
                 WebSocket.wsBroadcast(new TextMessage(mapper.writeValueAsString(EventJSON)));
             } catch (JsonProcessingException e) {
                 log.error("wsBroadcast error {}",e.getMessage());
@@ -144,9 +144,10 @@ public class TwitchBot {
                 EventJSON.put("event","end");
                 EventJSON.put("id","102");
                 EventJSON.putPOJO("data",Event);
-                Discord_Bot.sendMsg(Constant.DISCORD_CHANNEl_TEST,mapper.writeValueAsString(EventJSON));
+                Discord_Bot.sendMsg(Constant.DISCORD_CHANNEl_TEST,mapper.writeValueAsString(Event));
                 WebSocket.wsBroadcast(new TextMessage(mapper.writeValueAsString(EventJSON)));
-            } catch (JsonProcessingException e) {
+            }
+            catch (JsonProcessingException e) {
                 log.error("wsBroadcast error {}",e.getMessage());
             }
             twitchDao.saveData(Train);
