@@ -89,7 +89,7 @@ public class TwitchBot {
             Train.setExpiresAt(Event.getData().getExpiresAt().atZone(ZoneId.of("Asia/Taipei")).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
             log.info(Event.getData().getId());
             Discord_Bot.sendMsg(
-                    "==== 列車發車記錄(v"+Constant.VERSION+") ====\n" +
+                    "==== 列車發車記錄(v" + Constant.VERSION + ") ====\n" +
                             "開車時間: " + Train.getStartedAt() + "\n" +
                             "預計離站: " + Train.getExpiresAt() + "\n" +
                             "<@&806592766347968594>\n" +
@@ -97,13 +97,15 @@ public class TwitchBot {
 
             try {
                 ObjectNode EventJSON = mapper.createObjectNode();
-                EventJSON.put("event","start");
-                EventJSON.put("id","100");
-                EventJSON.putPOJO("data",Event);
-                Discord_Bot.sendMsg(Constant.DISCORD_CHANNEl_TEST,mapper.writeValueAsString(Event));
+                EventJSON.put("event", "start");
+                EventJSON.put("id", "100");
+                EventJSON.putPOJO("data", Event);
+                Discord_Bot.sendMsg(Constant.DISCORD_CHANNEl_TEST, mapper.writeValueAsString(EventJSON));
                 WebSocket.wsBroadcast(new TextMessage(mapper.writeValueAsString(EventJSON)));
             } catch (JsonProcessingException e) {
-                log.error("wsBroadcast error {}",e.getMessage());
+                log.error("wsBroadcast error {}", e.getMessage());
+            } catch (Exception e) {
+                log.error("wsBroadcast error {}", e.getMessage());
             }
         });
 
@@ -121,13 +123,15 @@ public class TwitchBot {
             Train.setGoal(Event.getData().getProgress().getGoal());
             try {
                 ObjectNode EventJSON = mapper.createObjectNode();
-                EventJSON.put("event","lvup");
-                EventJSON.put("id","101");
-                EventJSON.putPOJO("data",Event);
-                Discord_Bot.sendMsg(Constant.DISCORD_CHANNEl_TEST,mapper.writeValueAsString(Event));
+                EventJSON.put("event", "lvup");
+                EventJSON.put("id", "101");
+                EventJSON.putPOJO("data", Event);
+                Discord_Bot.sendMsg(Constant.DISCORD_CHANNEl_TEST, mapper.writeValueAsString(EventJSON));
                 WebSocket.wsBroadcast(new TextMessage(mapper.writeValueAsString(EventJSON)));
             } catch (JsonProcessingException e) {
-                log.error("wsBroadcast error {}",e.getMessage());
+                log.error("wsBroadcast error {}", e.getMessage());
+            } catch (Exception e) {
+                log.error("wsBroadcast error {}", e.getMessage());
             }
         });
         Client.getEventManager().onEvent(HypeTrainEndEvent.class, (Event) -> {
@@ -135,20 +139,21 @@ public class TwitchBot {
             Instant EndTime = Event.getData().getEndedAt();
             Train.setEndAt(Formatter.format(EndTime));
             Discord_Bot.sendMsg(
-                    "==== 列車發車記錄(v"+Constant.VERSION+") ====\n" +
+                    "==== 列車發車記錄(v" + Constant.VERSION + ") ====\n" +
                             "列車離站時間: " + Train.getEndAt() + "\n" +
                             "貼圖等級: " + Train.getLastLevel() + "-" + Train.getPercent() + "%\n" +
                             "=======================");
             try {
                 ObjectNode EventJSON = mapper.createObjectNode();
-                EventJSON.put("event","end");
-                EventJSON.put("id","102");
-                EventJSON.putPOJO("data",Event);
-                Discord_Bot.sendMsg(Constant.DISCORD_CHANNEl_TEST,mapper.writeValueAsString(Event));
+                EventJSON.put("event", "end");
+                EventJSON.put("id", "102");
+                EventJSON.putPOJO("data", Event);
+                Discord_Bot.sendMsg(Constant.DISCORD_CHANNEl_TEST, mapper.writeValueAsString(EventJSON));
                 WebSocket.wsBroadcast(new TextMessage(mapper.writeValueAsString(EventJSON)));
-            }
-            catch (JsonProcessingException e) {
-                log.error("wsBroadcast error {}",e.getMessage());
+            } catch (JsonProcessingException e) {
+                log.error("wsBroadcast error {}", e.getMessage());
+            } catch (Exception e) {
+                log.error("wsBroadcast error {}", e.getMessage());
             }
             twitchDao.saveData(Train);
         });
