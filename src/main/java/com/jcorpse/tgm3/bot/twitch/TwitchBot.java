@@ -99,7 +99,7 @@ public class TwitchBot {
                 ObjectNode EventJSON = mapper.createObjectNode();
                 EventJSON.put("event", "start");
                 EventJSON.put("id", "100");
-                EventJSON.putPOJO("data", Event);
+                EventJSON.putPOJO("data", Event.getData());
                 Discord_Bot.sendMsg(Constant.DISCORD_CHANNEl_TEST, mapper.writeValueAsString(EventJSON));
                 WebSocket.wsBroadcast(new TextMessage(mapper.writeValueAsString(EventJSON)));
             } catch (JsonProcessingException e) {
@@ -125,7 +125,7 @@ public class TwitchBot {
                 ObjectNode EventJSON = mapper.createObjectNode();
                 EventJSON.put("event", "lvup");
                 EventJSON.put("id", "101");
-                EventJSON.putPOJO("data", Event);
+                EventJSON.putPOJO("data", Event.getData());
                 Discord_Bot.sendMsg(Constant.DISCORD_CHANNEl_TEST, mapper.writeValueAsString(EventJSON));
                 WebSocket.wsBroadcast(new TextMessage(mapper.writeValueAsString(EventJSON)));
             } catch (JsonProcessingException e) {
@@ -147,7 +147,7 @@ public class TwitchBot {
                 ObjectNode EventJSON = mapper.createObjectNode();
                 EventJSON.put("event", "end");
                 EventJSON.put("id", "102");
-                EventJSON.putPOJO("data", Event);
+                EventJSON.putPOJO("data", Event.getData());
                 Discord_Bot.sendMsg(Constant.DISCORD_CHANNEl_TEST, mapper.writeValueAsString(EventJSON));
                 WebSocket.wsBroadcast(new TextMessage(mapper.writeValueAsString(EventJSON)));
             } catch (JsonProcessingException e) {
