@@ -6,6 +6,8 @@
 - [ ] 等我想到再加 ㄏ
 
 ### 版本更新
+- <font size=4>**version  2.0.3**</font> </br>
+    - 雙開之鬼移去前端
 - <font size=4>**version  2.0.2**</font> </br>
     - 加回舊版Discord地震回報功能
 - <font size=4>**version  2.0.1**</font> </br>

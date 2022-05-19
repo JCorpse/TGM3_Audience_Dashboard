@@ -12,16 +12,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/bot")
 public class BotController {
 
-    @GetMapping(value = "/send")
-    public String getBotSend() {
-        return "send";
-    }
-
     @CrossOrigin
     @PostMapping(value = "/send")
     public ResponseEntity Send(@RequestParam("token") String token,@RequestParam("msg") String msg) {
         if(token.equalsIgnoreCase(System.getenv("sendbot"))){
             TwitchBot.ChatSend(msg);
+        }else {
+            return new ResponseEntity<>("token error", HttpStatus.FORBIDDEN);
         }
         return new ResponseEntity<>("OK", HttpStatus.OK);
     }

@@ -14,8 +14,6 @@ public class Tgm3AudienceDashboardApplication {
 
     public static void main(String[] args) {
          SpringApplication.run(Tgm3AudienceDashboardApplication.class, args);
-//        TwitchBot.getInstance().test();
-//        DiscordBot.getInstance().run();
     }
 
 }
