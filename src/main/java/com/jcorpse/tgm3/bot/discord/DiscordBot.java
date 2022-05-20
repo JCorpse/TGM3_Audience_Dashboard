@@ -74,11 +74,11 @@ public class DiscordBot {
             if (message.getContent().equalsIgnoreCase("!魚灘")) {
                 final MessageChannel channel = message.getChannel().block();
                 channel.createMessage("""
-                                    <:grinning:977067435343622144><:grinning:977067435343622144><:grinning:977067435343622144>
-                                    <:grinning:977067435343622144><:grinning:977067435343622144><:grinning:977067435343622144>
-                                    <:grinning:977067435343622144><:grinning:977067435343622144><:grinning:977067435343622144>
-                                    <:grinning:977067435343622144><:grinning:977067435343622144><:grinning:977067435343622144>
-                                    <:grinning:977067435343622144><:grinning:977067435343622144><:grinning:977067435343622144>
+                                    <:LadellAMon:974313762800680960><:LadellAMon:974313762800680960><:LadellAMon:974313762800680960><:LadellAMon:974313762800680960><:LadellAMon:974313762800680960><:LadellAMon:974313762800680960>
+                                    <:fishSABA2:974313762800680960><:fishSABA2:974313762800680960><:fishSABA2:974313762800680960><:fishSABA2:974313762800680960><:fishSABA2:974313762800680960><:fishSABA2:974313762800680960>
+                                    <:fishSABA2:974313762800680960><:fishSABA2:974313762800680960><:fishSABA2:974313762800680960><:fishSABA2:974313762800680960><:fishSABA2:974313762800680960><:fishSABA2:974313762800680960>
+                                    <:fishSABA2:974313762800680960><:fishSABA2:974313762800680960><:fishSABA2:974313762800680960><:fishSABA2:974313762800680960><:fishSABA2:974313762800680960><:fishSABA2:974313762800680960>
+                                    <:fishSABA3:974313762800680960><:fishSABA3:974313762800680960><:fishSABA3:974313762800680960><:fishSABA3:974313762800680960><:fishSABA3:974313762800680960><:fishSABA3:974313762800680960>
                                     """).block();
             }
         });
