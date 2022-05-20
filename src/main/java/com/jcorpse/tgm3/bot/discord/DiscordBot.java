@@ -39,6 +39,7 @@ public class DiscordBot {
                     .login()
                     .block();
             ReportEarthquake();
+            FishStoreCheater();
         } catch (Exception e) {
             log.error("DiscordBot start error : {}", e.getMessage());
         }
@@ -48,7 +49,7 @@ public class DiscordBot {
         Client.getRestClient().getChannelById(Snowflake.of(Id.of(Constant.DISCORD_CHANNEl))).createMessage(content).subscribe();
     }
 
-    public void sendMsg(String ChannelID,  String content) {
+    public void sendMsg(String ChannelID, String content) {
         Client.getRestClient().getChannelById(Snowflake.of(Id.of(ChannelID))).createMessage(content).subscribe();
     }
 
@@ -63,6 +64,22 @@ public class DiscordBot {
                 } else {
                     channel.createMessage("ㄅ欠，政府的API太廢，沒反應，你等等在試試吧 ㄏ").block();
                 }
+            }
+        });
+    }
+
+    private static void FishStoreCheater() {
+        Client.on(MessageCreateEvent.class).subscribe(event -> {
+            final Message message = event.getMessage();
+            if (message.getContent().equalsIgnoreCase("!魚灘")) {
+                final MessageChannel channel = message.getChannel().block();
+                channel.createMessage("""
+                                    <:grinning:977067435343622144><:grinning:977067435343622144><:grinning:977067435343622144>
+                                    <:grinning:977067435343622144><:grinning:977067435343622144><:grinning:977067435343622144>
+                                    <:grinning:977067435343622144><:grinning:977067435343622144><:grinning:977067435343622144>
+                                    <:grinning:977067435343622144><:grinning:977067435343622144><:grinning:977067435343622144>
+                                    <:grinning:977067435343622144><:grinning:977067435343622144><:grinning:977067435343622144>
+                                    """).block();
             }
         });
     }
