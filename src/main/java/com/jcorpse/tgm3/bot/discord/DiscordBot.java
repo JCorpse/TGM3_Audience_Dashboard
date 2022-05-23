@@ -40,7 +40,7 @@ public class DiscordBot {
                     .block();
             ReportEarthquake();
             FishStoreCheater();
-            Solt();
+            Slot();
         } catch (Exception e) {
             log.error("DiscordBot start error : {}", e.getMessage());
         }
@@ -86,13 +86,13 @@ public class DiscordBot {
     }
 
 
-    private static void Solt() {
+    private static void Slot() {
         Client.on(MessageCreateEvent.class).subscribe(event -> {
             final Message message = event.getMessage();
-            if (message.getContent().equalsIgnoreCase("!sdsolt")) {
+            if (message.getContent().equalsIgnoreCase("!sdslot")) {
                 final MessageChannel channel = message.getChannel().block();
                 String defSolt = """
-                        [      **Sd Solt**      ]
+                        [      **Sd Slot**      ]
                         ------------------
                         | %s | %s | %s |
                         | %s | %s | %s |
