@@ -89,9 +89,10 @@ public class DiscordBot {
     private static void Solt() {
         Client.on(MessageCreateEvent.class).subscribe(event -> {
             final Message message = event.getMessage();
-            if (message.getContent().equalsIgnoreCase("!solt")) {
+            if (message.getContent().equalsIgnoreCase("!sdsolt")) {
                 final MessageChannel channel = message.getChannel().block();
                 String defSolt = """
+                        [    **Sd Solt**   ]
                         ------------------
                         | %s | %s | %s |
                         | %s | %s | %s |
