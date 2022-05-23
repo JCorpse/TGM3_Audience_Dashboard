@@ -21,7 +21,7 @@ public class Constant {
         int index = (int) (Math.random()*SOLT_EMOJIS.length);
         String result = "";
         switch (index){
-            case 1,4 -> result = " "+SOLT_EMOJIS[index];
+            case 0,5 -> result = " "+SOLT_EMOJIS[index];
             default -> result = " "+SOLT_EMOJIS[index]+" ";
         }
         return  result;
