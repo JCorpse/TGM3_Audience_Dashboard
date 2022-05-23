@@ -92,7 +92,7 @@ public class DiscordBot {
             if (message.getContent().equalsIgnoreCase("!sdsolt")) {
                 final MessageChannel channel = message.getChannel().block();
                 String defSolt = """
-                        [    **Sd Solt**   ]
+                        [      Sd Solt      ]
                         ------------------
                         | %s | %s | %s |
                         | %s | %s | %s |
