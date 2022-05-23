@@ -92,11 +92,11 @@ public class DiscordBot {
             if (message.getContent().equalsIgnoreCase("!solt")) {
                 final MessageChannel channel = message.getChannel().block();
                 String defSolt = """
-                        |========|
-                        |%s|%s|%s|
-                        |%s|%s|%s|
-                        |%s|%s|%s|
-                        |========|
+                        ----------------
+                        | %s | %s | %s |
+                        | %s | %s | %s |
+                        | %s | %s | %s |
+                        ----------------
                          """;
                 channel.createMessage(defSolt.formatted(Constant.getRandomEmojis(), Constant.getRandomEmojis(), Constant.getRandomEmojis(), Constant.getRandomEmojis(), Constant.getRandomEmojis(), Constant.getRandomEmojis(), Constant.getRandomEmojis(), Constant.getRandomEmojis(), Constant.getRandomEmojis())).block();
             }
