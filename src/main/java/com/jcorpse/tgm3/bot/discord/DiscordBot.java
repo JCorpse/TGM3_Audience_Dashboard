@@ -94,9 +94,9 @@ public class DiscordBot {
                 String defSolt = """
                         [      **Sd Slot**      ]
                         ------------------
-                        | %s | %s | %s |
-                        | %s | %s | %s |
-                        | %s | %s | %s |
+                        |%s|%s|%s|
+                        |%s|%s|%s|
+                        |%s|%s|%s|
                         ------------------
                          """;
                 channel.createMessage(defSolt.formatted(Constant.getRandomEmojis(), Constant.getRandomEmojis(), Constant.getRandomEmojis(), Constant.getRandomEmojis(), Constant.getRandomEmojis(), Constant.getRandomEmojis(), Constant.getRandomEmojis(), Constant.getRandomEmojis(), Constant.getRandomEmojis())).block();
