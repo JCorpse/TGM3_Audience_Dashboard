@@ -1,10 +1,5 @@
 package com.jcorpse.tgm3.config;
 
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.springframework.context.annotation.Bean;
-
 public class Constant {
     public static final String TWITCH_CHANNEL = "tetristhegrandmaster3";
     public static final String TWITCH_OAUTH = System.getenv("Twitch_OAUTH");
@@ -19,4 +14,10 @@ public class Constant {
     public static final String VERSION = "2.0.3";
 
     public static final String CWB_TOKEN = System.getenv("CWB_TOKEN");
+
+    public static final String[] SOLT_EMOJIS = {"<:AMONsimle:978124168610594856>","<:AmonWeird:978124157168529438>","<:LadellAMon:978124125526720582>"};
+
+    public static String getRandomEmojis(){
+        return SOLT_EMOJIS[(int) Math.random()*SOLT_EMOJIS.length];
+    }
 }

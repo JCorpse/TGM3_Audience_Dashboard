@@ -40,6 +40,7 @@ public class DiscordBot {
                     .block();
             ReportEarthquake();
             FishStoreCheater();
+            Solt();
         } catch (Exception e) {
             log.error("DiscordBot start error : {}", e.getMessage());
         }
@@ -74,12 +75,30 @@ public class DiscordBot {
             if (message.getContent().equalsIgnoreCase("!魚灘")) {
                 final MessageChannel channel = message.getChannel().block();
                 channel.createMessage("""
-                                    <:LadellAMon:867426295784538153> <:LadellAMon:867426295784538153> <:LadellAMon:867426295784538153> <:LadellAMon:867426295784538153> <:LadellAMon:867426295784538153> <:LadellAMon:867426295784538153>
-                                    <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872>
-                                    <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872>
-                                    <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872>
-                                    <:fishSABA3:950312699517083668> <:fishSABA3:950312699517083668> <:fishSABA3:950312699517083668> <:fishSABA3:950312699517083668> <:fishSABA3:950312699517083668> <:fishSABA3:950312699517083668>
-                                    """).block();
+                        <:LadellAMon:867426295784538153> <:LadellAMon:867426295784538153> <:LadellAMon:867426295784538153> <:LadellAMon:867426295784538153> <:LadellAMon:867426295784538153> <:LadellAMon:867426295784538153>
+                        <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872>
+                        <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872>
+                        <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872> <:fishSABA2:950312669355855872>
+                        <:fishSABA3:950312699517083668> <:fishSABA3:950312699517083668> <:fishSABA3:950312699517083668> <:fishSABA3:950312699517083668> <:fishSABA3:950312699517083668> <:fishSABA3:950312699517083668>
+                        """).block();
+            }
+        });
+    }
+
+
+    private static void Solt() {
+        Client.on(MessageCreateEvent.class).subscribe(event -> {
+            final Message message = event.getMessage();
+            if (message.getContent().equalsIgnoreCase("!solt")) {
+                final MessageChannel channel = message.getChannel().block();
+                String defSolt = """
+                        |========|
+                        |%s|%s|%s|
+                        |%s|%s|%s|
+                        |%s|%s|%s|
+                        |========|
+                         """;
+                channel.createMessage(defSolt.formatted(Constant.getRandomEmojis(), Constant.getRandomEmojis(), Constant.getRandomEmojis(), Constant.getRandomEmojis(), Constant.getRandomEmojis(), Constant.getRandomEmojis(), Constant.getRandomEmojis(), Constant.getRandomEmojis(), Constant.getRandomEmojis())).block();
             }
         });
     }
