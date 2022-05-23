@@ -75,11 +75,11 @@ public class DiscordBot {
             if (message.getContent().equalsIgnoreCase("!魚灘")) {
                 final MessageChannel channel = message.getChannel().block();
                 channel.createMessage("""
-                        <:LadellAMon:867426295784538153><:LadellAMon:867426295784538153><:LadellAMon:867426295784538153><:LadellAMon:867426295784538153><:LadellAMon:867426295784538153><:LadellAMon:867426295784538153>
-                        <:fishSABA2:950312669355855872><:fishSABA2:950312669355855872><:fishSABA2:950312669355855872><:fishSABA2:950312669355855872><:fishSABA2:950312669355855872><:fishSABA2:950312669355855872>
-                        <:fishSABA2:950312669355855872><:fishSABA2:950312669355855872><:fishSABA2:950312669355855872><:fishSABA2:950312669355855872><:fishSABA2:950312669355855872><:fishSABA2:950312669355855872>
-                        <:fishSABA2:950312669355855872><:fishSABA2:950312669355855872><:fishSABA2:950312669355855872><:fishSABA2:950312669355855872><:fishSABA2:950312669355855872><:fishSABA2:950312669355855872>
-                        <:fishSABA3:950312699517083668><:fishSABA3:950312699517083668><:fishSABA3:950312699517083668><:fishSABA3:950312699517083668><:fishSABA3:950312699517083668><:fishSABA3:950312699517083668>
+                        <:LadellAMon:><:LadellAMon:><:LadellAMon:><:LadellAMon:><:LadellAMon:><:LadellAMon:>
+                        <:fishSABA2:><:fishSABA2:><:fishSABA2:><:fishSABA2:><:fishSABA2:><:fishSABA2:>
+                        <:fishSABA2:><:fishSABA2:><:fishSABA2:><:fishSABA2:><:fishSABA2:><:fishSABA2:>
+                        <:fishSABA2:><:fishSABA2:><:fishSABA2:><:fishSABA2:><:fishSABA2:><:fishSABA2:>
+                        <:fishSABA3:><:fishSABA3:><:fishSABA3:><:fishSABA3:><:fishSABA3:><:fishSABA3:>
                         """).block();
             }
         });
@@ -92,7 +92,7 @@ public class DiscordBot {
             if (message.getContent().equalsIgnoreCase("!sdsolt")) {
                 final MessageChannel channel = message.getChannel().block();
                 String defSolt = """
-                        [       **Sd Solt**       ]
+                        [      **Sd Solt**      ]
                         ------------------
                         | %s | %s | %s |
                         | %s | %s | %s |
