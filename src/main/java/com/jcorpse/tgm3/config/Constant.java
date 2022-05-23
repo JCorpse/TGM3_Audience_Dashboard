@@ -10,20 +10,24 @@ public class Constant {
     public static final String DISCORD_CHANNEl_TEST = "687712826978074675";
     public static final String DISCORD_TOKEN = System.getenv("Discord_TOKEN");
 
-    public static final String TRAINS_COLLECTION_NAME="HyperTrains";
+    public static final String TRAINS_COLLECTION_NAME = "HyperTrains";
     public static final String VERSION = "2.0.4";
 
     public static final String CWB_TOKEN = System.getenv("CWB_TOKEN");
 
-    public static final String[] SOLT_EMOJIS = {"<:AMONsimle:807278771991609387> ","<:AmonWeird:809889506089893888>","<:LadellAMon:867426295784538153>","<:AMONcry2:807277761973714974>","<:A_:823552070203867167>","<:__:906269245074182224> ","<:FormerHypeTrain:806823733306195978>","<:CurrentHypeTrain:806826997514502194>"};
+    public static final String[] SOLT_EMOJIS = {"<:AMONsimle:807278771991609387> ", "<:AmonWeird:809889506089893888>", "<:LadellAMon:867426295784538153>", "<:AMONcry2:807277761973714974>", "<:A_:823552070203867167>", "<:__:906269245074182224> ", "<:FormerHypeTrain:806823733306195978>", "<:CurrentHypeTrain:806826997514502194>"};
 
-    public static String getRandomEmojis(){
-        int index = (int) (Math.random()*SOLT_EMOJIS.length);
-        String result = "";
-        switch (index){
-            case 0,5 -> result = " "+SOLT_EMOJIS[index];
-            default -> result = " "+SOLT_EMOJIS[index]+" ";
+    public static String[] getRandomEmojis(int count) {
+        String[] results = new String[count];
+        for (int i = 0; i < count; i++) {
+            int index = (int) (Math.random() * SOLT_EMOJIS.length);
+            String result = "";
+            switch (index) {
+                case 0, 5 -> result = " " + SOLT_EMOJIS[index];
+                default -> result = " " + SOLT_EMOJIS[index] + " ";
+            }
+            results[i] = result;
         }
-        return  result;
+        return results;
     }
 }

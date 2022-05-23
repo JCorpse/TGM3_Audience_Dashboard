@@ -99,7 +99,7 @@ public class DiscordBot {
                         |%s|%s|%s|
                         ------------------
                          """;
-                channel.createMessage(defSolt.formatted(Constant.getRandomEmojis(), Constant.getRandomEmojis(), Constant.getRandomEmojis(), Constant.getRandomEmojis(), Constant.getRandomEmojis(), Constant.getRandomEmojis(), Constant.getRandomEmojis(), Constant.getRandomEmojis(), Constant.getRandomEmojis())).block();
+                channel.createMessage(defSolt.formatted(Constant.getRandomEmojis(9))).block();
             }
         });
     }
