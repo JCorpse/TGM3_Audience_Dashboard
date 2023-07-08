@@ -5,7 +5,7 @@ FROM maven:3.9.3-sapmachine-17 AS build
 LABEL authors="Juu"
 
 ENV Discord_TOKEN=${Discord_TOKEN}
-ENV Discord_TOKEN=${Discord_TOKEN}
+ENV Twitch_OAUTH=${Twitch_OAUTH}
 ENV sendbot=${sendbot}
 
 
