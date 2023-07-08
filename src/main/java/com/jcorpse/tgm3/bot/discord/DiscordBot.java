@@ -36,6 +36,7 @@ public class DiscordBot {
             Client = DiscordClientBuilder.create(Constant.DISCORD_TOKEN)
                     .build()
                     .login()
+                    .retry()
                     .block();
             FishStoreCheater();
             Slot();
@@ -45,15 +46,15 @@ public class DiscordBot {
     }
 
     public void sendMsg(String content) {
-        Client.getRestClient().getChannelById(Snowflake.of(Id.of(Constant.DISCORD_CHANNEl))).createMessage(content).subscribe();
+        Client.getRestClient().getChannelById(Snowflake.of(Id.of(Constant.DISCORD_CHANNEl))).createMessage(content).retry().subscribe();
     }
 
     public void sendMsg(String ChannelID, String content) {
-        Client.getRestClient().getChannelById(Snowflake.of(Id.of(ChannelID))).createMessage(content).subscribe();
+        Client.getRestClient().getChannelById(Snowflake.of(Id.of(ChannelID))).createMessage(content).retry().subscribe();
     }
 
     private static void FishStoreCheater() {
-        Client.on(MessageCreateEvent.class).subscribe(event -> {
+        Client.on(MessageCreateEvent.class).retry().subscribe(event -> {
             final Message message = event.getMessage();
             if (message.getContent().equalsIgnoreCase("!魚灘")) {
                 final MessageChannel channel = message.getChannel().block();
@@ -70,7 +71,7 @@ public class DiscordBot {
 
 
     private static void Slot() {
-        Client.on(MessageCreateEvent.class).subscribe(event -> {
+        Client.on(MessageCreateEvent.class).retry().subscribe(event -> {
             final Message message = event.getMessage();
             if (message.getContent().equalsIgnoreCase("!sdslot")) {
                 final MessageChannel channel = message.getChannel().block();
