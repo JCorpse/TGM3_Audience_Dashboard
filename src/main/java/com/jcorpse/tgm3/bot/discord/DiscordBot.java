@@ -1,7 +1,6 @@
 package com.jcorpse.tgm3.bot.discord;
 
 import com.jcorpse.tgm3.config.Constant;
-import com.jcorpse.tgm3.org.cwb.Earthquake;
 import discord4j.common.util.Snowflake;
 import discord4j.core.DiscordClientBuilder;
 import discord4j.core.GatewayDiscordClient;
@@ -38,7 +37,6 @@ public class DiscordBot {
                     .build()
                     .login()
                     .block();
-            ReportEarthquake();
             FishStoreCheater();
             Slot();
         } catch (Exception e) {
@@ -52,21 +50,6 @@ public class DiscordBot {
 
     public void sendMsg(String ChannelID, String content) {
         Client.getRestClient().getChannelById(Snowflake.of(Id.of(ChannelID))).createMessage(content).subscribe();
-    }
-
-    private static void ReportEarthquake() {
-        Client.on(MessageCreateEvent.class).subscribe(event -> {
-            final Message message = event.getMessage();
-            if (message.getContent().equalsIgnoreCase("!震")) {
-                final MessageChannel channel = message.getChannel().block();
-                EmbedCreateSpec Embed = Earthquake.getEarthquakeReport();
-                if (Embed != null) {
-                    channel.createMessage(Embed).block();
-                } else {
-                    channel.createMessage("ㄅ欠，政府的API太廢，沒反應，你等等在試試吧 ㄏ").block();
-                }
-            }
-        });
     }
 
     private static void FishStoreCheater() {
@@ -93,11 +76,11 @@ public class DiscordBot {
                 final MessageChannel channel = message.getChannel().block();
                 String defSolt = """
                         [      **Sd Slot**      ]
-                        ------------------
+                        -----------------
                         | %s | %s | %s |
                         | %s | %s | %s |
                         | %s | %s | %s |
-                        ------------------
+                        -----------------
                          """;
                 channel.createMessage(defSolt.formatted(Constant.getRandomEmojis(9))).block();
             }

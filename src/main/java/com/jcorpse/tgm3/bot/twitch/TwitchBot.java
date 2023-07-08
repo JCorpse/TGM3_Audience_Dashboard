@@ -6,16 +6,17 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.github.philippheuer.credentialmanager.CredentialManager;
+import com.github.philippheuer.credentialmanager.CredentialManagerBuilder;
 import com.github.philippheuer.credentialmanager.domain.OAuth2Credential;
 import com.github.twitch4j.TwitchClient;
 import com.github.twitch4j.TwitchClientBuilder;
+import com.github.twitch4j.auth.providers.TwitchIdentityProvider;
 import com.github.twitch4j.chat.events.channel.*;
 import com.github.twitch4j.helix.domain.UserList;
 import com.github.twitch4j.pubsub.events.*;
 import com.jcorpse.tgm3.bot.discord.DiscordBot;
 import com.jcorpse.tgm3.config.Constant;
-import com.jcorpse.tgm3.dao.TwitchDao;
-import com.jcorpse.tgm3.dao.impl.HyperTrainDaoImpl;
 import com.jcorpse.tgm3.dto.HyperTrain;
 import com.jcorpse.tgm3.websocket.WebSocket;
 import lombok.extern.slf4j.Slf4j;
@@ -39,16 +40,7 @@ public class TwitchBot {
     private static TwitchClient Client;
     private static HyperTrain Train = new HyperTrain();
     private static ObjectMapper mapper = new ObjectMapper();
-
-
-    static
-    TwitchDao twitchDao;
-
-
-    @Autowired
-    public void setTwitchDao(HyperTrainDaoImpl HyperTrainDaoImpl) {
-        twitchDao = HyperTrainDaoImpl;
-    }
+//    private static CredentialManager credentialManager = CredentialManagerBuilder.builder().build();
 
     static {
         run();
@@ -61,12 +53,14 @@ public class TwitchBot {
     }
 
     private static void init() {
+//        credentialManager.registerIdentityProvider(new TwitchIdentityProvider("s43zme2ai0pg2jeqcf0r82sq4qdxoa", Constant.TWITCH_OAUTH, "http://localhost"));
         Client = TwitchClientBuilder.builder()
                 .withEnableChat(true)
                 .withChatAccount(Credential)
                 .withEnablePubSub(true)
                 .withEnableHelix(true)
                 .withDefaultAuthToken(Credential)
+//                .withCredentialManager(credentialManager)
                 .build();
         Formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
                 .withLocale(Locale.TAIWAN)
@@ -113,6 +107,7 @@ public class TwitchBot {
             Train.setGoal(Event.getData().getProgress().getGoal());
             Train.setPercent((new DecimalFormat("#.##").format(((float) Train.getProgress() / Train.getGoal()) * 100)));
         });
+
         Client.getEventManager().onEvent(HypeTrainLevelUpEvent.class, (Event) -> {
             log.info(Event.toString());
             Train.setLastLevel(Event.getData().getProgress().getLevel().getValue());
@@ -128,6 +123,7 @@ public class TwitchBot {
                 log.error("wsBroadcast error {}", e.getMessage());
             }
         });
+
         Client.getEventManager().onEvent(HypeTrainEndEvent.class, (Event) -> {
             log.info(Event.toString());
             Instant EndTime = Event.getData().getEndedAt();
@@ -146,7 +142,6 @@ public class TwitchBot {
             } catch (Exception e) {
                 log.error("wsBroadcast error {}", e.getMessage());
             }
-            twitchDao.saveData(Train);
         });
 //        Client.getEventManager().onEvent(HypeTrainConductorUpdateEvent.class, (Event) -> {
 //            log.info(Event.toString());
