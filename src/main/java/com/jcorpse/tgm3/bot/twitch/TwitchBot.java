@@ -53,14 +53,12 @@ public class TwitchBot {
     }
 
     private static void init() {
-//        credentialManager.registerIdentityProvider(new TwitchIdentityProvider("s43zme2ai0pg2jeqcf0r82sq4qdxoa", Constant.TWITCH_OAUTH, "http://localhost"));
         Client = TwitchClientBuilder.builder()
                 .withEnableChat(true)
                 .withChatAccount(Credential)
                 .withEnablePubSub(true)
                 .withEnableHelix(true)
                 .withDefaultAuthToken(Credential)
-//                .withCredentialManager(credentialManager)
                 .build();
         Formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
                 .withLocale(Locale.TAIWAN)
@@ -143,12 +141,6 @@ public class TwitchBot {
                 log.error("wsBroadcast error {}", e.getMessage());
             }
         });
-//        Client.getEventManager().onEvent(HypeTrainConductorUpdateEvent.class, (Event) -> {
-//            log.info(Event.toString());
-//        });
-//        Client.getEventManager().onEvent(HypeTrainCooldownExpirationEvent.class, (Event) -> {
-//            log.info(Event.toString());
-//        });
     }
 
     private static void Chatlistener() {
